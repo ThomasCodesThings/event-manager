@@ -9,5 +9,9 @@ export default defineConfig({
     strictPort: true,
     host: true,
     origin: "http://localhost:8080",
+  },
+  preview: {
+    port: 8080,
+    strictPort: true
   }
 })
