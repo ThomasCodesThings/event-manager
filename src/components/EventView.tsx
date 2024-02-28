@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const EventView = () => {
   const { eventId } = useParams<{ eventId?: string }>();
+  console.log(state)
   const events = useSelector((state: RootState) => state.event.data);
   const [showEventForm, setShowEventForm] = React.useState(false);
 
