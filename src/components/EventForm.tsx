@@ -92,6 +92,7 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
 
 
   const onSubmit = (data: IEvent) => {
+    data.beginDate = new Date(data.beginDate).toISOString().replace(/T/, ' ').replace(/\..+/, '');
     if (data.id === 0) { //nove udaje maju setnnute id na o preto vieme rozpoznať či ideme vytvoriť novy objekt alebo upraviť existujúci
       dispatch(addEvent(data));
     } else {
