@@ -49,7 +49,7 @@ jobs:
       uses: docker/metadata-action@v3
       with:
         images: |
-          <your-dockerhub-account>/ambulance-ufe
+          thomascodesthings/event-manager
         tags: |
           type=schedule
           type=ref,event=branch
