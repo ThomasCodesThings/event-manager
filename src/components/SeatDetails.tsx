@@ -36,8 +36,8 @@ const SeatDetails: React.FC<SeatDetailsProps> = ({ row, seat, price, state, x, y
   }
 
   return (
-    <div className="absolute" style={{ left: x, top: y }}>
-        <div className={`bg-white text-black p-2 rounded shadow ${borderColor}`} style={{ borderWidth: '2px' }}>
+    <div className="absolute" style={{ left: `${x + 10}px`, top: `${y + 10}px` }}>
+    <div className={`bg-white text-black p-2 rounded shadow ${borderColor}`} style={{ borderWidth: '2px' }}>
         <p>Rad: {row}</p>
         <p>Sedadlo: {seat}</p>
         <p>Cena: {price}</p>
