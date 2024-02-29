@@ -120,6 +120,8 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               {...register('title', { required: true, validate: validateTitle })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500}`}
             />
+             {errors.title && <span className="text-red-500">{errors.title.message}</span>}
+            {!errors.title && <span className="text-green-500">✓ V poriadku</span>}
           </div>
           <div className="mb-4 sm:col-span-1 md:col-span-1">
             <label htmlFor="lobby" className="block">Hladisko</label>
@@ -130,6 +132,8 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               {...register('lobby', { required: true, validate: validateLobby })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
             />
+             {errors.title && <span className="text-red-500">{errors.title.message}</span>}
+            {!errors.title && <span className="text-green-500">✓ V poriadku</span>}
           </div>
           <div className="mb-4 sm:col-span-1 md:col-span-1">
             <label htmlFor="address" className="block">Adresa</label>
@@ -140,6 +144,7 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               {...register('address', { required: true, validate: validateAddress })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
             />
+
           </div>
           <div className="mb-4 sm:col-span-1 md:col-span-1">
             <label htmlFor="beginDate" className="block">Začiatok</label>
@@ -150,6 +155,8 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               {...register('beginDate', { required: true, validate: validateBeginDate })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500`}
             />
+             {errors.title && <span className="text-red-500">{errors.title.message}</span>}
+            {!errors.title && <span className="text-green-500">✓ V poriadku</span>}
           </div>
           <div className="mb-4 sm:col-span-1 md:col-span-1">
             <label htmlFor="prices" className="block">Ceny</label>
@@ -170,6 +177,8 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               {...register('numOfRows', { required: true, validate: validateRows })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
             />
+            {errors.title && <span className="text-red-500">{errors.title.message}</span>}
+          {!errors.title && <span className="text-green-500">✓ V poriadku</span>}
           </div>
           <div className="mb-4 sm:col-span-1 md:col-span-1">
             <label htmlFor="numOfSeats" className="block">Počet sediadiel (v rade)</label>
@@ -180,6 +189,8 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               {...register('numOfSeats', { required: true, validate: validateSeats })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
             />
+            {errors.title && <span className="text-red-500">{errors.title.message}</span>}
+          {!errors.title && <span className="text-green-500">✓ V poriadku</span>}
           </div>
           <div className="text-center sm:col-span-1 md:col-span-3">
             <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Uložiť</button>
