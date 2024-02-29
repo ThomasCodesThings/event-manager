@@ -12,14 +12,14 @@ interface EventFormProps {
 
 const EventForm = ({ event, visible, onClose }: EventFormProps) => {
   const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm<IEvent>({
-    defaultValues: { id: 0, title: '', lobby: '', address: '', beginDate: '', prices: '', numOfRows: 0, numOfSeats: 0 }, //defaultne hodnoty
+    defaultValues: { id: 0, title: '', lobby: '', address: '', beginDate: '', prices: '', numOfRows: 0, numOfSeats: 0 },
     mode: 'onSubmit'
   });
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (event) { //prednastavenie hodnôt
+    if (event) {
       setValue('id', event.id);
       setValue('title', event.title);
       setValue('lobby', event.lobby);
@@ -34,9 +34,9 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
   }, [event, setValue, reset]);
 
   const handleOnClose = (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement, MouseEvent>) => {
-    if ((e.target as HTMLElement).id === 'bg' || (e.target as HTMLElement).id === 'x-btn') { //ak stlacim rozmazane pozadie alebo tlačidlo X tak sa okno zavrie
-      reset(); //reset hodnot
-      onClose(); //zatvorenie formulara
+    if ((e.target as HTMLElement).id === 'bg' || (e.target as HTMLElement).id === 'x-btn') {
+      reset();
+      onClose();
     }
   };
   
@@ -90,16 +90,15 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
     return value > 0 ? true : 'Počet sedadiel musí byť väčší 0';
   }
 
-
   const onSubmit = (data: IEvent) => {
     data.beginDate = new Date(data.beginDate).toISOString().replace(/T/, ' ').replace(/\..+/, '');
-    if (data.id === 0) { //nove udaje maju setnnute id na o preto vieme rozpoznať či ideme vytvoriť novy objekt alebo upraviť existujúci
+    if (data.id === 0) {
       dispatch(addEvent(data));
     } else {
       dispatch(editEvent(data));
     }
-    reset(); //reset hodnôt na defaultné
-    onClose(); //zatvorenie formulára
+    reset();
+    onClose();
   };
 
   if (!visible) {
@@ -108,95 +107,81 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
 
   return (
     <div id="bg" className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center" onClick={handleOnClose}>
-      <div className="bg-white p-4 rounded w-72 relative">
+      <div className="bg-white p-6 rounded-md w-11/12 sm:w-11/12 md:w-11/12 lg:w-10/12 xl:w-10/12 2xl:w-10/12 h-auto sm:h-auto md:h-auto lg:h-auto xl:h-auto 2xl:h-auto relative">
         <button id="x-btn" className="absolute top-0 right-0 p-2 text-gray-600 hover:text-gray-800 font-bold mr-2 mt-2" onClick={handleOnClose}>X</button>
-        <h1 className="text-center font-bold mb-4">Formulár</h1>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mb-4">
+        <h1 className="text-center font-bold mb-4">{event ? 'Úprava eventu ' + event.id.toString(): 'Pridanie nového eventu'}</h1>
+        <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="mb-4 sm:col-span-1 md:col-span-1">
             <label htmlFor="title" className="block">Title</label>
             <input
               type="text"
               id="title"
+              placeholder="Najlepsi event"
               {...register('title', { required: true, validate: validateTitle })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500}`}
             />
-            {errors.title && <span className="text-red-500">{errors.title.message}</span>}
-            {errors.root?.type === 'required' && <span className="text-red-500">Toto pole je povinné!</span>}
-            {!errors.title && <span className="text-green-500">✓ V poriadku</span>}
           </div>
-          <div className="mb-4">
+          <div className="mb-4 sm:col-span-1 md:col-span-1">
             <label htmlFor="lobby" className="block">Hladisko</label>
             <input
               type="text"
               id="lobby"
+              placeholder="A"
               {...register('lobby', { required: true, validate: validateLobby })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
             />
-            {errors.lobby && <span className="text-red-500">{errors.lobby.message}</span>}
-            {errors.root?.type === 'required' && <span className="text-red-500">Toto pole je povinné</span>}
-            {!errors.lobby && <span className="text-green-500">✓ V poriadku</span>}
           </div>
-          <div className="mb-4">
+          <div className="mb-4 sm:col-span-1 md:col-span-1">
             <label htmlFor="address" className="block">Adresa</label>
             <input
               type="text"
               id="address"
+              placeholder="Bajkalska 10, Bratislava"
               {...register('address', { required: true, validate: validateAddress })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
             />
-            {errors.address && <span className="text-red-500">{errors.address.message}</span>}
-            {errors.root?.type === 'required' && <span className="text-red-500">Toto pole je povinné</span>}
-            {!errors.address && <span className="text-green-500">✓ V poriadku</span>}
           </div>
-          <div className="mb-4">
+          <div className="mb-4 sm:col-span-1 md:col-span-1">
             <label htmlFor="beginDate" className="block">Začiatok</label>
             <input
               type="datetime-local"
               id="beginDate"
+              placeholder={new Date().toISOString().slice(0, 16)}
               {...register('beginDate', { required: true, validate: validateBeginDate })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500`}
             />
-            {errors.beginDate && <span className="text-red-500">{errors.beginDate.message}</span>}
-            {errors.root?.type === 'required' && <span className="text-red-500">Toto pole je povinné</span>}
-            {!errors.beginDate && <span className="text-green-500">✓ V poriadku</span>}
           </div>
-         <div className="mb-4">
+          <div className="mb-4 sm:col-span-1 md:col-span-1">
             <label htmlFor="prices" className="block">Ceny</label>
             <input
               type="text"
               id="prices"
+              placeholder="10, 20, 50"
               {...register('prices', { required: true, validate: validatePrices})}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
             />
-            {errors.prices && <span className="text-red-500">{errors.prices.message}</span>}
-            {errors.root?.type === 'required' && <span className="text-red-500">Toto pole je povinné</span>}
-            {!errors.prices && <span className="text-green-500">✓ V poriadku</span>}
           </div>
-          <div className="mb-4">
+          <div className="mb-4 sm:col-span-1 md:col-span-1">
             <label htmlFor="numOfRows" className="block">Počet radov</label>
             <input
               type="number"
               id="numOfRows"
+              placeholder="10"
               {...register('numOfRows', { required: true, validate: validateRows })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
             />
-            {errors.numOfRows && <span className="text-red-500">{errors.numOfRows.message}</span>}
-            {errors.root?.type === 'required' && <span className="text-red-500">Toto pole je povinné</span>}
-            {!errors.numOfRows && <span className="text-green-500">✓ V poriadku</span>}
           </div>
-          <div className="mb-4">
+          <div className="mb-4 sm:col-span-1 md:col-span-1">
             <label htmlFor="numOfSeats" className="block">Počet sediadiel (v rade)</label>
             <input
               type="number"
               id="numOfSeats"
+              placeholder="20"
               {...register('numOfSeats', { required: true, validate: validateSeats })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
             />
-            {errors.numOfSeats && <span className="text-red-500">{errors.numOfSeats.message}</span>}
-            {errors.root?.type === 'required' && <span className="text-red-500">Toto pole je povinné</span>}
-            {!errors.numOfSeats && <span className="text-green-500">✓ V poriadku</span>}
           </div>
-          <div className="text-center">
+          <div className="text-center sm:col-span-1 md:col-span-3">
             <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Uložiť</button>
           </div>
         </form>
