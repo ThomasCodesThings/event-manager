@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../store/eventStore';
 import SeatGrid from './SeatGrid';
 import EventForm from './EventForm';
-import { useAppSelector } from '../hooks/hooks';
 
 const EventView = () => {
   const { eventId } = useParams<{ eventId?: string }>();
