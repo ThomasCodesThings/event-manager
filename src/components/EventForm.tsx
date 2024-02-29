@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { addEvent, editEvent } from '../reducers/eventSlice';
 import { IEvent } from '../interfaces/interfaces';
-import { set, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '../hooks/hooks';
 
 interface EventFormProps {
