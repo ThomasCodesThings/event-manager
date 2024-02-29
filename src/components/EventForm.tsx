@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { addEvent, editEvent } from '../reducers/eventSlice';
 import { IEvent } from '../interfaces/interfaces';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import { useAppDispatch } from '../hooks/hooks';
 
 interface EventFormProps {
@@ -31,7 +31,7 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
     } else {
       reset();
     }
-  }, [event, reset, setValue]);
+  }, [event, setValue, reset]);
 
   const handleOnClose = (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement, MouseEvent>) => {
     if ((e.target as HTMLElement).id === 'bg' || (e.target as HTMLElement).id === 'x-btn') { //ak stlacim rozmazane pozadie alebo tlačidlo X tak sa okno zavrie
@@ -118,7 +118,7 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               type="text"
               id="title"
               {...register('title', { required: true, validate: validateTitle })}
-              className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 ${errors.title && 'border-red-500'} ${!(errors.title) && 'border-green-500'}`}
+              className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500}`}
             />
             {errors.title && <span className="text-red-500">{errors.title.message}</span>}
             {errors.root?.type === 'required' && <span className="text-red-500">Toto pole je povinné!</span>}
@@ -130,7 +130,7 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               type="text"
               id="lobby"
               {...register('lobby', { required: true, validate: validateLobby })}
-              className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 ${errors.lobby && 'border-red-500'} ${!(errors.lobby) && 'border-green-500'}`}
+              className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
             />
             {errors.lobby && <span className="text-red-500">{errors.lobby.message}</span>}
             {errors.root?.type === 'required' && <span className="text-red-500">Toto pole je povinné</span>}
@@ -142,7 +142,7 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               type="text"
               id="address"
               {...register('address', { required: true, validate: validateAddress })}
-              className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 ${errors.address && 'border-red-500'} ${!(errors.address) && 'border-green-500'}`}
+              className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
             />
             {errors.address && <span className="text-red-500">{errors.address.message}</span>}
             {errors.root?.type === 'required' && <span className="text-red-500">Toto pole je povinné</span>}
@@ -154,7 +154,7 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               type="datetime-local"
               id="beginDate"
               {...register('beginDate', { required: true, validate: validateBeginDate })}
-              className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 ${errors.beginDate && 'border-red-500'} ${!(errors.beginDate) && 'border-green-500'}`}
+              className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500`}
             />
             {errors.beginDate && <span className="text-red-500">{errors.beginDate.message}</span>}
             {errors.root?.type === 'required' && <span className="text-red-500">Toto pole je povinné</span>}
@@ -166,7 +166,7 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               type="text"
               id="prices"
               {...register('prices', { required: true, validate: validatePrices})}
-              className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 ${errors.prices && 'border-red-500'} ${!(errors.prices) && 'border-green-500'}`}
+              className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
             />
             {errors.prices && <span className="text-red-500">{errors.prices.message}</span>}
             {errors.root?.type === 'required' && <span className="text-red-500">Toto pole je povinné</span>}
@@ -178,7 +178,7 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               type="number"
               id="numOfRows"
               {...register('numOfRows', { required: true, validate: validateRows })}
-              className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 ${errors.numOfRows && 'border-red-500'} ${!(errors.numOfRows) && 'border-green-500'}`}
+              className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
             />
             {errors.numOfRows && <span className="text-red-500">{errors.numOfRows.message}</span>}
             {errors.root?.type === 'required' && <span className="text-red-500">Toto pole je povinné</span>}
@@ -190,7 +190,7 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               type="number"
               id="numOfSeats"
               {...register('numOfSeats', { required: true, validate: validateSeats })}
-              className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 ${errors.numOfSeats && 'border-red-500'} ${!(errors.numOfSeats) && 'border-green-500'}`}
+              className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
             />
             {errors.numOfSeats && <span className="text-red-500">{errors.numOfSeats.message}</span>}
             {errors.root?.type === 'required' && <span className="text-red-500">Toto pole je povinné</span>}

@@ -1,14 +1,14 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/eventStore';
 import SeatGrid from './SeatGrid';
 import EventForm from './EventForm';
-import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../hooks/hooks';
 
 const EventView = () => {
   const { eventId } = useParams<{ eventId?: string }>();
-  console.log(state)
+  const navigate = useNavigate();
   const events = useSelector((state: RootState) => state.event.data);
   const [showEventForm, setShowEventForm] = React.useState(false);
 
@@ -16,25 +16,25 @@ const EventView = () => {
     return <div>Chýba ID eventu</div>;
   }
 
-  const event = events.find(event => event.id === parseInt(eventId));
+  const event = events.find((event) => event.id === parseInt(eventId));
 
   if (!event) {
     return <div>Event nenájdený!</div>;
   }
 
-  const navigate = useNavigate();
-
   const handleBack = () => {
     navigate(-1);
-  }
+  };
 
   return (
     <div className="flex flex-col items-start">
       <div className="flex flex-col items-start">
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleBack}>Späť</button>
-      <h1 className="text-2xl font-bold mb-4">
-      Event ID: {eventId} - {event.title}
-      </h1>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleBack}>
+          Späť
+        </button>
+        <h1 className="text-2xl font-bold mb-4">
+          Event ID: {eventId} - {event.title}
+        </h1>
       </div>
       <div className="flex flex-wrap w-full">
         <div className="w-full md:w-1/2 lg:w-1/3 mb-4">
