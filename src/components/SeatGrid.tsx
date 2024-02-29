@@ -140,6 +140,7 @@ const SeatGrid = ({ numOfRows, numOfSeats, prices }: SeatGridProps) => {
 <h2 className="text-xl font-bold ml-4">Cena spolu: {selectedSeats.totalPrice}</h2>
 </div>
 </div>
+
   );
 };
 
