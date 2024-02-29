@@ -75,8 +75,8 @@ const EventList = () => {
         <button className="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-md" onClick={toggleFilter}>Filter</button>
       </div>
       <EventFilter events={events} visible={showFilter} setEvents={setEvents} onClose={handleReset} />
-      <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+      <div className="overflow-x-auto shadow hidden xl:block">
+        <div className="inline-block rounded-xl min-w-full">
           <div className="overflow-hidden">
             <table className="w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
@@ -108,6 +108,21 @@ const EventList = () => {
           </div>
         </div>
       </div>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 xl:hidden">
+  {events.map((event: IEvent, index: number) => (
+    <div key={index} className="border border-gray-200 rounded shadow p-4">
+      <h3 className="text-black-500 hover:font-bold truncate"> <Link to={`/${event.id}`}>{event.title}</Link></h3>
+      <p className="truncate">{event.lobby}</p>
+      <p className="truncate">{event.address}</p>
+      <p className="truncate">{event.beginDate}</p>
+      <div>
+        <button className="text-blue-500 hover:text-blue-900 mr-2" onClick={()=> handleEditEvent(event)}>Upraviť</button>
+        <button className="text-red-500 hover:text-red-900" onClick={() => dispatch(removeEvent(event))}>Vymazať</button>
+      </div>
+    </div>
+  ))}
+</div>
+
     </div>
   );
 };

@@ -64,7 +64,6 @@ const EventView = () => {
       <div className="flex justify-center w-full">
         <SeatGrid numOfRows={event.numOfRows} numOfSeats={event.numOfSeats} prices={event.prices} />
       </div>
-      <EventForm event={event} visible={showEventForm} onClose={() => setShowEventForm(false)} />
     </div>
   );
 };

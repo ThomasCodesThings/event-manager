@@ -133,13 +133,14 @@ const SeatGrid = ({ numOfRows, numOfSeats, prices }: SeatGridProps) => {
 
   return (
     <div className="seat-container">
-      <h3 className="text-center font-bold mb-4">Hladisko</h3>
-      <div className="seat-grid">{generateSeats()}</div>
-      <div className="flex items-center justify-center mt-4">
-        <h2 className="text-xl font-bold">Vybrané sedadlá: {selectedSeats.numOfSeats}</h2>
-        <h2 className="text-xl font-bold ml-4">Cena spolu: {selectedSeats.totalPrice}</h2>
-      </div>
-    </div>
+  <h3 className="text-center font-bold mb-4">Hladisko</h3>
+  <div className="seat-grid">{generateSeats()}</div>
+  <div className="selected-info-container border-gray-400 border-solid border rounded-lg p-4 mt-4">
+<h2 className="text-xl font-bold">Vybrané sedadlá: {selectedSeats.numOfSeats}</h2>
+<h2 className="text-xl font-bold ml-4">Cena spolu: {selectedSeats.totalPrice}</h2>
+</div>
+</div>
+
   );
 };
 

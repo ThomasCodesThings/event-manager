@@ -11,7 +11,6 @@ function App() {
 
   useEffect(() => {
     store.dispatch(fetchEvents());
-    console.log("fetching events")
   }, []); //fetch dat z api na začiatku
   return (
     <Provider store={store}>
