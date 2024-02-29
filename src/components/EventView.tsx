@@ -3,13 +3,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/eventStore';
 import SeatGrid from './SeatGrid';
-import EventForm from './EventForm';
 
 const EventView = () => {
   const { eventId } = useParams<{ eventId?: string }>();
   const navigate = useNavigate();
   const events = useSelector((state: RootState) => state.event.data);
-  const [showEventForm, setShowEventForm] = React.useState(false);
 
   if (!eventId) {
     return <div>Chýba ID eventu</div>;
