@@ -48,9 +48,13 @@ const EventList = () => {
     setShowFilter(!showFilter);
   };
 
-  const handleReset = () => {
+  const handleFilterCLose = () => {
     setEvents(fetchedEvents);
     setShowFilter(false);
+  };
+
+  const handleFilterReset = () => {
+    setEvents(fetchedEvents);
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +78,7 @@ const EventList = () => {
         <EventForm event={event} visible={showEventForm} onClose={() => setShowEventForm(false)} />
         <button className="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-md" onClick={toggleFilter}>Filter</button>
       </div>
-      <EventFilter events={events} visible={showFilter} setEvents={setEvents} onClose={handleReset} />
+      <EventFilter events={events} visible={showFilter} setEvents={setEvents} onClose={handleFilterCLose} onReset={handleFilterReset} />
       <div className="overflow-x-auto shadow hidden xl:block">
         <div className="inline-block rounded-xl min-w-full">
           <div className="overflow-hidden">
