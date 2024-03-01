@@ -95,13 +95,13 @@ const EventList = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {events.map((event: IEvent, index: number) => (
                   <tr key={index}>
-                    <td className="text-black-500 hover:font-bold px-6 py-4 whitespace-nowrap">
+                    <td className="text-black-500 hover:font-bold px-6 py-4 whitespace-nowrap truncate">
                       <Link to={`/${event.id}`}>{event.title}</Link>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">{event.lobby}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{event.address}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{event.beginDate}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap truncate">{event.lobby}</td>
+                    <td className="px-6 py-4 whitespace-nowrap truncate">{event.address}</td>
+                    <td className="px-6 py-4 whitespace-nowrap truncate">{event.beginDate}</td>
+                    <td className="px-6 py-4 whitespace-nowrap truncate">
                       <button className="text-blue-500 hover:text-blue-900 mr-2" onClick={()=> handleEditEvent(event)}>Upraviť</button>
                       <button className="text-red-500 hover:text-red-900" onClick={() => dispatch(removeEvent(event))}>Vymazať</button>
                     </td>

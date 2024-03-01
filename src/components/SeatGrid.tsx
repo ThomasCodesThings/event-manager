@@ -93,6 +93,7 @@ const SeatGrid = ({ numOfRows, numOfSeats, prices }: SeatGridProps) => {
             onClick={() => handleSelectSeat(index)}
             style={{ cursor: seatStatuses[index].isHovered ? 'pointer' : 'auto' }}
           >
+            <div className="hidden md:block lg:block">
             {seatStatuses[index].isHovered && (
               <SeatDetails
                 row={seatStatuses[index].row}
@@ -103,7 +104,8 @@ const SeatGrid = ({ numOfRows, numOfSeats, prices }: SeatGridProps) => {
                 y={mousePosition.y}
               />        
             )}
-            <div className="seat-price">{index + 1}</div>
+            </div>
+            <div className="seat-index">{index + 1}</div>
           </div>
         );
       }
@@ -136,7 +138,7 @@ const SeatGrid = ({ numOfRows, numOfSeats, prices }: SeatGridProps) => {
   return (
     <div className="seat-container">
       <h3 className="text-center font-bold mb-4">Hladisko</h3>
-      <div className="seat-flex-container">{generateSeats(8, 8)}</div>
+      <div className="seat-flex-container">{generateSeats(7, 7)}</div>
       <div className="selected-info-container border-gray-400 border-solid border rounded-lg p-4 mt-4">
         <h2 className="text-xl font-bold">Vybrané sedadlá: {selectedSeats.numOfSeats}</h2>
         <h2 className="text-xl font-bold ml-4">Cena spolu: {selectedSeats.totalPrice}</h2>
