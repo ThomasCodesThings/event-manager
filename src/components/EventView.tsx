@@ -23,7 +23,7 @@ const EventView = () => {
   };
 
   return (
-    <div className="flex flex-col items-start">
+    <div className="flex flex-col items-center">
       <div className="flex flex-col items-start">
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleBack}>
           Späť
