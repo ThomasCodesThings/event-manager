@@ -25,25 +25,30 @@ const EventFilter: React.FC<EventFilterProps> = ({ events, visible, setEvents, o
 
     const [isFiletered, setIsFiltered] = useState(false); //uložene stavu či som filtroval už alebo nie
 
-    const handleFilter = () => { //filtrácia
-        let filteredEvents = [...events];
-
-        if (filterTitle) {
-            filteredEvents = filteredEvents.filter(event => event.title.toLowerCase().includes(filterTitle.toLowerCase()));
-        }
-
-        if (filterLobby) {
-            filteredEvents = filteredEvents.filter(event => event.lobby.toLowerCase().includes(filterLobby.toLowerCase()));
-        }
-
-        if (filterBeginDate) {
-            filteredEvents = filteredEvents.filter(event => new Date(event.beginDate) >= new Date(filterBeginDate));
-        }
-
-        setEvents(filteredEvents);
-        setIsFiltered(true);
-    };
-    
+    const handleFilter = () => {
+      let filteredEvents: any[] = [...events]; // Assume events is an array of objects
+  
+      const filters = [
+          { key: 'title', value: filterTitle },
+          { key: 'lobby', value: filterLobby },
+          { key: 'beginDate', value: filterBeginDate }
+      ];
+  
+      filteredEvents = filteredEvents.filter((event: any) => {
+          return filters.every(filter => {
+              if (!filter.value) return true; // Skip if filter value is empty
+              if (filter.key === 'beginDate') {
+                  return new Date(event[filter.key]) >= new Date(filter.value);
+              } else {
+                  return event[filter.key]?.toLowerCase().includes(filter.value.toLowerCase());
+              }
+          });
+      });
+  
+      setEvents(filteredEvents);
+      setIsFiltered(true);
+  };
+      
     const resetFilters = () => {
         setFilterTitle('');
         setFilterLobby('');

@@ -11,9 +11,9 @@ interface EventFormProps {
 }
 
 const EventForm = ({ event, visible, onClose }: EventFormProps) => {
-  const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm<IEvent>({
+  const { register, handleSubmit, setValue, formState: { dirtyFields, errors }, reset } = useForm<IEvent>({
     defaultValues: { id: 0, title: '', lobby: '', address: '', beginDate: '', prices: '', numOfRows: 0, numOfSeats: 0 },
-    mode: 'onSubmit'
+    mode: 'onBlur'
   });
 
   const dispatch = useAppDispatch();
@@ -31,7 +31,7 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
     } else {
       reset();
     }
-  }, [event, setValue, reset]);
+  }, [event]);
 
   const handleOnClose = (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement, MouseEvent>) => {
     if ((e.target as HTMLElement).id === 'bg' || (e.target as HTMLElement).id === 'x-btn') {
@@ -106,8 +106,8 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
   }
 
   return (
-    <div id="bg" className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center" onClick={handleOnClose}>
-      <div className="bg-white p-6 rounded-md w-11/12 sm:w-11/12 md:w-11/12 lg:w-10/12 xl:w-10/12 2xl:w-10/12 h-auto sm:h-auto md:h-auto lg:h-auto xl:h-auto 2xl:h-auto relative">
+    <div id="bg" className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center z-10" onClick={handleOnClose}>
+      <div className="bg-white p-6 rounded-md w-11/12 sm:w-11/12 md:w-11/12 lg:w-10/12 xl:w-10/12 2xl:w-10/12 h-auto sm:h-auto md:h-auto lg:h-auto xl:h-auto 2xl:h-auto relative max-h-screen overflow-y-scroll">
         <button id="x-btn" className="absolute top-0 right-0 p-2 text-gray-600 hover:text-gray-800 font-bold mr-2 mt-2" onClick={handleOnClose}>X</button>
         <h1 className="text-center font-bold mb-4">{event ? 'Úprava eventu ' + event.id.toString(): 'Pridanie nového eventu'}</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -117,11 +117,11 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               type="text"
               id="title"
               placeholder="Najlepsi event"
-              {...register('title', { required: true, validate: validateTitle })}
+              {...register('title', { required: "Toto pole je povinné!", validate: validateTitle })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500}`}
             />
-             {errors.title && <span className="text-red-500">{errors.title.message}</span>}
-            {!errors.title && <span className="text-green-500">✓ V poriadku</span>}
+             <span className="text-red-500">{errors.title?.message}</span>
+             {(dirtyFields.title && !errors.title) && <span className="text-green-500">✓ V poriadku</span>}
           </div>
           <div className="mb-4 sm:col-span-1 md:col-span-1">
             <label htmlFor="lobby" className="block">Hladisko</label>
@@ -129,11 +129,11 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               type="text"
               id="lobby"
               placeholder="A"
-              {...register('lobby', { required: true, validate: validateLobby })}
+              {...register('lobby', { required: "Toto pole je povinné!", validate: validateLobby })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
             />
-             {errors.title && <span className="text-red-500">{errors.title.message}</span>}
-            {!errors.title && <span className="text-green-500">✓ V poriadku</span>}
+            {errors.lobby && <span className="text-red-500">{errors.lobby?.message}</span>}
+            {(dirtyFields.lobby && !errors.lobby) && <span className="text-green-500">✓ V poriadku</span>}
           </div>
           <div className="mb-4 sm:col-span-1 md:col-span-1">
             <label htmlFor="address" className="block">Adresa</label>
@@ -141,10 +141,11 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               type="text"
               id="address"
               placeholder="Bajkalska 10, Bratislava"
-              {...register('address', { required: true, validate: validateAddress })}
+              {...register('address', { required: "Toto pole je povinné!", validate: validateAddress })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
             />
-
+            {errors.address && <span className="text-red-500">{errors.address?.message}</span>}
+             {(dirtyFields.address && !errors.address) && <span className="text-green-500">✓ V poriadku</span>}
           </div>
           <div className="mb-4 sm:col-span-1 md:col-span-1">
             <label htmlFor="beginDate" className="block">Začiatok</label>
@@ -152,11 +153,12 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               type="datetime-local"
               id="beginDate"
               placeholder={new Date().toISOString().slice(0, 16)}
-              {...register('beginDate', { required: true, validate: validateBeginDate })}
+              {...register('beginDate', { required: "Toto pole je povinné!", validate: validateBeginDate })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500`}
             />
-             {errors.title && <span className="text-red-500">{errors.title.message}</span>}
-            {!errors.title && <span className="text-green-500">✓ V poriadku</span>}
+            {errors.beginDate && <span className="text-red-500">{errors.beginDate?.message}</span>}
+             {(dirtyFields.beginDate && errors.beginDate) && <span className="text-red-500">{errors.beginDate.message}</span>}
+             {(dirtyFields.beginDate && !errors.beginDate) && <span className="text-green-500">✓ V poriadku</span>}
           </div>
           <div className="mb-4 sm:col-span-1 md:col-span-1">
             <label htmlFor="prices" className="block">Ceny</label>
@@ -164,9 +166,12 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               type="text"
               id="prices"
               placeholder="10, 20, 50"
-              {...register('prices', { required: true, validate: validatePrices})}
+              {...register('prices', { required: "Toto pole je povinné!", validate: validatePrices})}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
             />
+            {errors.numOfRows && <span className="text-red-500">{errors.numOfRows.message}</span>}
+              {(dirtyFields.prices && errors.prices) && <span className="text-red-500">{errors.prices.message}</span>}
+              {(dirtyFields.prices && !errors.prices) && <span className="text-green-500">✓ V poriadku</span>}
           </div>
           <div className="mb-4 sm:col-span-1 md:col-span-1">
             <label htmlFor="numOfRows" className="block">Počet radov</label>
@@ -174,11 +179,12 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               type="number"
               id="numOfRows"
               placeholder="10"
-              {...register('numOfRows', { required: true, validate: validateRows })}
+              {...register('numOfRows', { required: "Toto pole je povinné!", validate: validateRows })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
-            />
-            {errors.title && <span className="text-red-500">{errors.title.message}</span>}
-          {!errors.title && <span className="text-green-500">✓ V poriadku</span>}
+              />
+              {errors.numOfRows && <span className="text-red-500">{errors.numOfRows.message}</span>}
+              {(dirtyFields.numOfRows && errors.numOfRows) && <span className="text-red-500">{errors.numOfRows.message}</span>}
+               {(dirtyFields.numOfRows && !errors.numOfRows) && <span className="text-green-500">✓ V poriadku</span>}
           </div>
           <div className="mb-4 sm:col-span-1 md:col-span-1">
             <label htmlFor="numOfSeats" className="block">Počet sediadiel (v rade)</label>
@@ -186,11 +192,12 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               type="number"
               id="numOfSeats"
               placeholder="20"
-              {...register('numOfSeats', { required: true, validate: validateSeats })}
+              {...register('numOfSeats', { required: "Toto pole je povinné!", validate: validateSeats })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
-            />
-            {errors.title && <span className="text-red-500">{errors.title.message}</span>}
-          {!errors.title && <span className="text-green-500">✓ V poriadku</span>}
+              />
+              {errors.numOfSeats && <span className="text-red-500">{errors.numOfSeats.message}</span>}
+            {(dirtyFields.numOfSeats && errors.numOfSeats) && <span className="text-red-500">{errors.numOfSeats.message}</span>}
+               {(dirtyFields.numOfSeats && !errors.numOfRows) && <span className="text-green-500">✓ V poriadku</span>}
           </div>
           <div className="text-center sm:col-span-1 md:col-span-3">
             <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Uložiť</button>
