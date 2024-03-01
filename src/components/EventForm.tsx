@@ -163,7 +163,7 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               {...register('beginDate', { required: "Toto pole je povinné!", validate: validateBeginDate })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500`}
             />
-            {errors.beginDate && <span className="text-red-500">{errors.beginDate?.message}</span>}
+            {(errors.beginDate && !dirtyFields.beginDate) && <span className="text-red-500">{errors.beginDate?.message}</span>}
              {(dirtyFields.beginDate && errors.beginDate) && <span className="text-red-500">{errors.beginDate.message}</span>}
              {(dirtyFields.beginDate && !errors.beginDate) && <span className="text-green-500">✓ V poriadku</span>}
           </div>
@@ -176,7 +176,7 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               {...register('prices', { required: "Toto pole je povinné!", validate: validatePrices})}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
             />
-            {errors.prices && <span className="text-red-500">{errors.prices.message}</span>}
+            {(errors.prices && !dirtyFields.prices) && <span className="text-red-500">{errors.prices.message}</span>}
               {(dirtyFields.prices && errors.prices) && <span className="text-red-500">{errors.prices.message}</span>}
               {(dirtyFields.prices && !errors.prices) && <span className="text-green-500">✓ V poriadku</span>}
           </div>
@@ -189,7 +189,7 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               {...register('numOfRows', { required: "Toto pole je povinné!", validate: validateRows })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
               />
-              {errors.numOfRows && <span className="text-red-500">{errors.numOfRows.message}</span>}
+              {(errors.numOfRows && !dirtyFields.numOfRows) && <span className="text-red-500">{errors.numOfRows.message}</span>}
               {(dirtyFields.numOfRows && errors.numOfRows) && <span className="text-red-500">{errors.numOfRows.message}</span>}
                {(dirtyFields.numOfRows && !errors.numOfRows) && <span className="text-green-500">✓ V poriadku</span>}
           </div>
@@ -202,9 +202,9 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               {...register('numOfSeats', { required: "Toto pole je povinné!", validate: validateSeats })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
               />
-              {errors.numOfSeats && <span className="text-red-500">{errors.numOfSeats.message}</span>}
+              {(errors.numOfSeats && !dirtyFields.numOfSeats) && <span className="text-red-500">{errors.numOfSeats.message}</span>}
             {(dirtyFields.numOfSeats && errors.numOfSeats) && <span className="text-red-500">{errors.numOfSeats.message}</span>}
-               {(dirtyFields.numOfSeats && !errors.numOfRows) && <span className="text-green-500">✓ V poriadku</span>}
+               {(dirtyFields.numOfSeats && !errors.numOfSeats) && <span className="text-green-500">✓ V poriadku</span>}
           </div>
           <div className="text-center sm:col-span-1 md:col-span-3">
             <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Uložiť</button>

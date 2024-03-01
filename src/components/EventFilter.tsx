@@ -6,9 +6,10 @@ interface EventFilterProps {
     visible: boolean;
     setEvents: Dispatch<SetStateAction<IEvent[]>>;
     onClose: () => void;
+    onReset: () => void;
 }
 
-const EventFilter: React.FC<EventFilterProps> = ({ events, visible, setEvents, onClose }) => {
+const EventFilter: React.FC<EventFilterProps> = ({ events, visible, setEvents, onClose, onReset }) => {
     const [filterTitle, setFilterTitle] = useState('');
     const [filterLobby, setFilterLobby] = useState('');
     const [filterAddress, setFilterAddress] = useState('');
@@ -17,7 +18,6 @@ const EventFilter: React.FC<EventFilterProps> = ({ events, visible, setEvents, o
     const [isFiletered, setIsFiltered] = useState(false); //uložene stavu či som filtroval už alebo nie
 
     const handleFilter = () => {
-      resetFilters() //?
       let filteredEvents = [...events];
 
       if (filterTitle) {
@@ -43,7 +43,7 @@ const EventFilter: React.FC<EventFilterProps> = ({ events, visible, setEvents, o
     const resetFilters = () => {
         setFilterTitle('');
         setFilterLobby('');
-        const currentDate = new Date(); //set datumu na súčasny
+        const currentDate = new Date(); //nastavnie datumu na súčasný
         const year = currentDate.getFullYear();
         const month = String(currentDate.getMonth() + 1).padStart(2, '0');
         const day = String(currentDate.getDate()).padStart(2, '0');
@@ -61,39 +61,39 @@ const EventFilter: React.FC<EventFilterProps> = ({ events, visible, setEvents, o
     const handleReset = () => {
         resetFilters();
         setIsFiltered(false);
-        onClose();
+        onReset();
     }
 
     return (
-      <div style={{ display: visible ? 'block' : 'none' }} className="p-4 border rounded relative grid grid-rows-5 gap-4">
-        <button onClick={handleClose} className="absolute top-0 right-0 text-gray-600 hover:text-gray-800 font-bold mr-2 mt-2">X</button>
+      <div>
+        <div style={{ display: visible ? 'grid' : 'none' }} className="grid grid-cols-[min-content_1fr] gap-2 p-1 border rounded mb-3 relative">
+          <div className="col-span-2 p-3 flex justify-between">
+            <h1 className="inline-block font-bold">Filter</h1>
+            <button onClick={handleClose} className="text-gray-600 hover:text-gray-800 font-bold">X</button>
+          </div>
+          <label className="p-3 whitespace-nowrap text-right">Názov</label>
+          <input type="text" placeholder="Najlepsi event" value={filterTitle} onChange={e => setFilterTitle(e.target.value)} className="px-3 bg-stone-100 border border-stone-300 rounded" />
         
-        <div className="grid grid-cols-5 mb-4">
-          <label className="mr-2 col-span-1">Názov</label>
-          <input type="text" placeholder="Názov" value={filterTitle} onChange={e => setFilterTitle(e.target.value)} className="col-span-4" />
+          <label className="p-3 whitespace-nowrap text-right">Hladisko</label>
+          <input type="text" placeholder="A" value={filterLobby} onChange={e => setFilterLobby(e.target.value)} className="px-3 bg-stone-100 border border-stone-300 rounded" />
+      
+          <label className="p-3 whitespace-nowrap text-right">Adresa</label>
+          <input type="text" placeholder="Hladikova 25, Bratislava" value={filterAddress} onChange={e => setFilterAddress(e.target.value)} className="px-3 bg-stone-100 border border-stone-300 rounded" />
+      
+          <label className="p-3 whitespace-nowrap text-right">Začiatok</label>
+          <input type="datetime-local" placeholder="Začiatok" value={filterBeginDate} onChange={e => setFilterBeginDate(e.target.value)} className="px-3 bg-stone-100 border border-stone-300 rounded" />
+          
+          <div className="col-span-2 flex justify-end">
+            <button onClick={handleFilter} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Filtrovať</button>
+          </div>
         </div>
-        
-        <div className="grid grid-cols-5 mb-4">
-          <label className="mr-2 col-span-1">Hladisko</label>
-          <input type="text" placeholder="Hladisko" value={filterLobby} onChange={e => setFilterLobby(e.target.value)} className="col-span-4" />
-        </div>
-        
-        <div className="grid grid-cols-5 mb-4">
-          <label className="mr-2 col-span-1">Adresa</label>
-          <input type="text" placeholder="Adresa" value={filterAddress} onChange={e => setFilterAddress(e.target.value)} className="col-span-4" />
-        </div>
-        
-        <div className="grid grid-cols-5 mb-4">
-          <label className="mr-2 col-span-1">Začiatok</label>
-          <input type="datetime-local" placeholder="Začiatok" value={filterBeginDate} onChange={e => setFilterBeginDate(e.target.value)} className="col-span-4" />
-        </div>
-        
-        <div className="flex justify-between col-span-5">
-          <button onClick={handleFilter} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Filtrovať</button>
-          {isFiletered && <button onClick={handleReset} className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Reset filtra</button>}
+        <div className="text-left">
+        {isFiletered && <button onClick={handleReset} className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Reset filtra</button>}
         </div>
       </div>
     );
+    
+    
 };
 
 export default EventFilter;
