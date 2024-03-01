@@ -11,8 +11,16 @@ interface EventFormProps {
 }
 
 const EventForm = ({ event, visible, onClose }: EventFormProps) => {
+  const currentDate = new Date(); //set datumu na súčasny
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+  const day = String(currentDate.getDate()).padStart(2, '0');
+  const hour = String(currentDate.getHours()).padStart(2, '0');
+  const minute = String(currentDate.getMinutes()).padStart(2, '0');
+  const second = '00'
+
   const { register, handleSubmit, setValue, formState: { dirtyFields, errors }, reset } = useForm<IEvent>({
-    defaultValues: { id: 0, title: '', lobby: '', address: '', beginDate: '', prices: '', numOfRows: 0, numOfSeats: 0 },
+    defaultValues: { id: 0, title: '', lobby: '', address: '', beginDate: `${year}-${month}-${day} ${hour}:${minute}:${second}`, prices: '', numOfRows: 0, numOfSeats: 0 },
     mode: 'onBlur'
   });
 
@@ -91,7 +99,7 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
   }
 
   const onSubmit = (data: IEvent) => {
-    data.beginDate = new Date(data.beginDate).toISOString().replace(/T/, ' ').replace(/\..+/, '');
+    data.beginDate = data.beginDate.replace(/T/, ' ').replace(/\..+/, '');
     if (data.id === 0) {
       dispatch(addEvent(data));
     } else {
@@ -152,7 +160,6 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
             <input
               type="datetime-local"
               id="beginDate"
-              placeholder={new Date().toISOString().slice(0, 16)}
               {...register('beginDate', { required: "Toto pole je povinné!", validate: validateBeginDate })}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500`}
             />
@@ -169,7 +176,7 @@ const EventForm = ({ event, visible, onClose }: EventFormProps) => {
               {...register('prices', { required: "Toto pole je povinné!", validate: validatePrices})}
               className={`w-full border rounded py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-500 `}
             />
-            {errors.numOfRows && <span className="text-red-500">{errors.numOfRows.message}</span>}
+            {errors.prices && <span className="text-red-500">{errors.prices.message}</span>}
               {(dirtyFields.prices && errors.prices) && <span className="text-red-500">{errors.prices.message}</span>}
               {(dirtyFields.prices && !errors.prices) && <span className="text-green-500">✓ V poriadku</span>}
           </div>

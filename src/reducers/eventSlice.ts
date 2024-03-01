@@ -40,8 +40,12 @@ export const fetchEvents = createAsyncThunk(
           address = city;
         }
 
-        const date = new Date(beginDateElement.textContent || '');
-        const beginDate = date.toISOString().replace(/T/, ' ').replace(/\..+/, '');
+        const date = beginDateElement.textContent || ''
+        var beginDate = ''
+        if (!date){
+          beginDate = new Date().toString().replace(/T/, ' ').replace(/\..+/, '');
+        }
+        beginDate = date.toLocaleString().replace(/T/, ' ').replace(/\..+/, '');
         const pricesMatch = pricesElement.textContent ? pricesElement.textContent.match(regex) : null;
         const prices = pricesMatch ? pricesMatch.map(price => parseFloat(price)) : [];
 
