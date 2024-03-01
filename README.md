@@ -2,5 +2,5 @@
 # Event manager
 
 ## Použité technológie:
-Vite, React, Redux, TailwindCSS, TypeScript, react-router-dom
+Vite, React, Redux, TailwindCSS, TypeScript, react-router-dom, react-hook-form
 

@@ -23,44 +23,46 @@ const EventView = () => {
   };
 
   return (
+    <div>
+    <div className="flex flex-col items-start">
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleBack}>
+        Späť
+      </button>
+      <h1 className="text-2xl font-bold mb-4 break-all">
+        Event ID: {eventId} - {event.title}
+      </h1>
+    </div>
     <div className="flex flex-col items-center">
-      <div className="flex flex-col items-start">
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleBack}>
-          Späť
-        </button>
-        <h1 className="text-2xl font-bold mb-4">
-          Event ID: {eventId} - {event.title}
-        </h1>
-      </div>
       <div className="flex flex-wrap w-full">
-        <div className="w-full md:w-1/2 lg:w-1/3 mb-4">
+        <div className="w-full md:w-1/2 lg:w-1/3 p-4">
           <p className="font-bold">Hladisko:</p>
-          <p>{event.lobby}</p>
+          <p className="break-all">{event.lobby}</p>
         </div>
-        <div className="w-full md:w-1/2 lg:w-1/3 mb-4">
+        <div className="w-full md:w-1/2 lg:w-1/3 p-4">
           <p className="font-bold">Adresa:</p>
-          <p>{event.address}</p>
+          <p className="break-all">{event.address}</p>
         </div>
-        <div className="w-full md:w-1/2 lg:w-1/3 mb-4">
+        <div className="w-full md:w-1/2 lg:w-1/3 p-4">
           <p className="font-bold">Začiatok:</p>
-          <p>{event.beginDate}</p>
+          <p className="break-all">{event.beginDate}</p>
         </div>
-        <div className="w-full md:w-1/2 lg:w-1/3 mb-4">
+        <div className="w-full md:w-1/2 lg:w-1/3 p-4">
           <p className="font-bold">Ceny:</p>
-          <p>{event.prices}</p>
+          <p className="break-all">{event.prices}</p>
         </div>
-        <div className="w-full md:w-1/2 lg:w-1/3 mb-4">
+        <div className="w-full md:w-1/2 lg:w-1/3 p-4">
           <p className="font-bold">Počet radov:</p>
-          <p>{event.numOfRows}</p>
+          <p className="break-all">{event.numOfRows}</p>
         </div>
-        <div className="w-full md:w-1/2 lg:w-1/3 mb-4">
+        <div className="w-full md:w-1/2 lg:w-1/3 p-4">
           <p className="font-bold">Počet sedadiel:</p>
-          <p>{event.numOfSeats}</p>
+          <p className="break-all">{event.numOfSeats}</p>
         </div>
       </div>
       <div className="flex justify-center w-full">
         <SeatGrid numOfRows={event.numOfRows} numOfSeats={event.numOfSeats} prices={event.prices} />
       </div>
+    </div>
     </div>
   );
 };

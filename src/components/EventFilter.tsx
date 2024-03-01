@@ -69,7 +69,9 @@ const EventFilter: React.FC<EventFilterProps> = ({ events, visible, setEvents, o
         <div style={{ display: visible ? 'grid' : 'none' }} className="grid grid-cols-[min-content_1fr] gap-2 p-1 border rounded mb-3 relative">
           <div className="col-span-2 p-3 flex justify-between">
             <h1 className="inline-block font-bold">Filter</h1>
-            <button onClick={handleClose} className="text-gray-600 hover:text-gray-800 font-bold">X</button>
+            <button onClick={handleClose} className="text-gray-600 hover:text-gray-800 font-bold"><svg className="w-[20px] h-[20px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18 18 6m0 12L6 6"/>
+  </svg></button>
           </div>
           <label className="p-3 whitespace-nowrap text-right">Názov</label>
           <input type="text" placeholder="Najlepsi event" value={filterTitle} onChange={e => setFilterTitle(e.target.value)} className="px-3 bg-stone-100 border border-stone-300 rounded" />

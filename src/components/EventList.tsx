@@ -93,7 +93,7 @@ const EventList = () => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {events.map((event: IEvent, index: number) => (
+              {events.map((event: IEvent, index: number) => (
                   <tr key={index}>
                     <td className="text-black-500 hover:font-bold px-6 py-4 whitespace-nowrap truncate">
                       <Link to={`/${event.id}`}>{event.title}</Link>
@@ -126,7 +126,6 @@ const EventList = () => {
     </div>
   ))}
 </div>
-
     </div>
   );
 };
