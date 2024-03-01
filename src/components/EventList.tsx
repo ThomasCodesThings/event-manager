@@ -85,22 +85,22 @@ const EventList = () => {
             <table className="w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th scope="col" className="px-6 py-3">Názov</th>
-                  <th scope="col" className="px-6 py-3">Hladisko</th>
-                  <th scope="col" className="px-6 py-3">Adresa</th>
-                  <th scope="col" className="px-6 py-3">Začiatok</th>
-                  <th scope="col" className="px-6 py-3">Operácie</th>
+                  <th scope="col" className="px-6 py-3 w-1/5">Názov</th>
+                  <th scope="col" className="px-6 py-3 w-1/5">Hladisko</th>
+                  <th scope="col" className="px-6 py-3 w-1/5">Adresa</th>
+                  <th scope="col" className="px-6 py-3 w-1/5">Začiatok</th>
+                  <th scope="col" className="px-6 py-3 w-1/5">Operácie</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-              {events.map((event: IEvent, index: number) => (
+                {events.map((event: IEvent, index: number) => (
                   <tr key={index}>
                     <td className="text-black-500 hover:font-bold px-6 py-4 whitespace-nowrap truncate">
-                      <Link to={`/${event.id}`}>{event.title}</Link>
+                      <Link to={`/${event.id}`} className="overflow-ellipsis">{event.title}</Link>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap truncate">{event.lobby}</td>
-                    <td className="px-6 py-4 whitespace-nowrap truncate">{event.address}</td>
-                    <td className="px-6 py-4 whitespace-nowrap truncate">{event.beginDate}</td>
+                    <td className="px-6 py-4 whitespace-nowrap truncate"><span className="overflow-ellipsis">{event.lobby}</span></td>
+                    <td className="px-6 py-4 whitespace-nowrap truncate"><span className="overflow-ellipsis">{event.address}</span></td>
+                    <td className="px-6 py-4 whitespace-nowrap truncate"><span className="overflow-ellipsis">{event.beginDate}</span></td>
                     <td className="px-6 py-4 whitespace-nowrap truncate">
                       <button className="text-blue-500 hover:text-blue-900 mr-2" onClick={()=> handleEditEvent(event)}>Upraviť</button>
                       <button className="text-red-500 hover:text-red-900" onClick={() => dispatch(removeEvent(event))}>Vymazať</button>
@@ -113,21 +113,22 @@ const EventList = () => {
         </div>
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 xl:hidden">
-  {events.map((event: IEvent, index: number) => (
-    <div key={index} className="border border-gray-200 rounded shadow p-4">
-      <h3 className="text-black-500 hover:font-bold truncate"> <Link to={`/${event.id}`}>{event.title}</Link></h3>
-      <p className="truncate">{event.lobby}</p>
-      <p className="truncate">{event.address}</p>
-      <p className="truncate">{event.beginDate}</p>
-      <div>
-        <button className="text-blue-500 hover:text-blue-900 mr-2" onClick={()=> handleEditEvent(event)}>Upraviť</button>
-        <button className="text-red-500 hover:text-red-900" onClick={() => dispatch(removeEvent(event))}>Vymazať</button>
+        {events.map((event: IEvent, index: number) => (
+          <div key={index} className="border border-gray-200 rounded shadow p-4">
+            <h3 className="text-black-500 hover:font-bold truncate"><Link to={`/${event.id}`} className="overflow-ellipsis">{event.title}</Link></h3>
+            <p className="truncate"><span className="overflow-ellipsis">{event.lobby}</span></p>
+            <p className="truncate"><span className="overflow-ellipsis">{event.address}</span></p>
+            <p className="truncate"><span className="overflow-ellipsis">{event.beginDate}</span></p>
+            <div>
+              <button className="text-blue-500 hover:text-blue-900 mr-2" onClick={()=> handleEditEvent(event)}>Upraviť</button>
+              <button className="text-red-500 hover:text-red-900" onClick={() => dispatch(removeEvent(event))}>Vymazať</button>
+            </div>
+          </div>
+        ))}
       </div>
-    </div>
-  ))}
-</div>
     </div>
   );
 };
+  
 
 export default EventList;
