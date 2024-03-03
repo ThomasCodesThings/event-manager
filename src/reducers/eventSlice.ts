@@ -61,6 +61,7 @@ export const fetchEvents = createAsyncThunk(
         });
       }
 
+      console.log(eventsArray)
       return eventsArray;
 
     } catch (error) {
@@ -97,8 +98,8 @@ export const eventReducer = createSlice({
       const index = state.data.findIndex(
         (event: IEvent) => event.id === action.payload.id
       );
-
-      if (index){
+      console.log(state.data[index].id)
+      if (index !== -1){
         state.data[index] = action.payload;
       }
     },
@@ -106,7 +107,7 @@ export const eventReducer = createSlice({
       const index = state.data.findIndex(
         (event: IEvent) => event.id === action.payload.id
       );
-      if (index) {
+      if (index !== -1) {
         state.data.splice(index, 1);
       }
     }

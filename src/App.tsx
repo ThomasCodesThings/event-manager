@@ -12,6 +12,7 @@ function App() {
   useEffect(() => {
     store.dispatch(fetchEvents());
   }, []); //fetch dat z api na začiatku
+  
   return (
     <Provider store={store}>
       <Router>
